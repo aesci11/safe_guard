@@ -1,0 +1,2 @@
+C:/Users/junbeom/tricosdev/safe_guard/android/app/.cxx/RelWithDebInfo/2b1v232k/arm64-v8a/CMakeFiles/edit_cache.dir
+C:/Users/junbeom/tricosdev/safe_guard/android/app/.cxx/RelWithDebInfo/2b1v232k/arm64-v8a/CMakeFiles/rebuild_cache.dir
