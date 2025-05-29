@@ -14,6 +14,9 @@ import 'package:safe_guard/theme/res/layout.dart';
 
 /// 남은 작업
 /// 1. 차단기 제어 미구현
+/// 2. push message 테스트
+/// 3. 알람 사운드 확인
+/// 4.
 ///
 
 class HomeView extends ConsumerStatefulWidget {
@@ -31,16 +34,29 @@ class _HomeViewState extends ConsumerState<HomeView> with TickerProviderStateMix
   @override
   void initState() {
     super.initState();
+
+    /// push 메세지 초기화
     ref.read(pushNotificationServiceProvider.notifier).initLocalNotifications();
+
+    /// 안드로이드 알람 채널 초기화
     ref.read(pushNotificationServiceProvider.notifier).initializeAndroidNotificationChannel();
+
+    /// push 메세지 처리
     ref.read(pushNotificationServiceProvider.notifier).setupFMC();
+
+    /// 알람 권한 요청
     ref.read(homeViewModelProvider.notifier).requestPermission();
+
+    /// 바텀 네비게이션 시트 구성
     _tabController = TabController(length: 4, vsync: this);
     _tabController.addListener(tabListener);
+
+    /// 초기 사이트 정보 불러오기
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       ref.read(homeViewModelProvider.notifier).getSiteInfo();
       ref.read(homeViewModelProvider.notifier).getBuildingAndBuildingStatusList();
       ref.read(homeViewModelProvider.notifier).getContactList();
+      ref.read(homeViewModelProvider.notifier).packageInfo();
     });
   }
 
@@ -87,6 +103,7 @@ class _HomeViewState extends ConsumerState<HomeView> with TickerProviderStateMix
                 builder: (context) => SettingsDialog(
                   onLogoutPressed: () => viewModel.logout(context),
                   siteUrl: state.siteModel.siteDomain,
+                  appVersion: state.appVersion,
                 ),
               );
             },

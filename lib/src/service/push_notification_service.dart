@@ -77,7 +77,7 @@ class PushNotificationService extends _$PushNotificationService {
       importance: Importance.max,
       priority: Priority.high,
       playSound: true,
-      sound: RawResourceAndroidNotificationSound(soundName),
+      sound: channel.sound,
     );
     const DarwinNotificationDetails iosChannelSpecifics = DarwinNotificationDetails(
       presentAlert: true,

@@ -17,8 +17,13 @@ class BuildingView extends ConsumerStatefulWidget {
     this.siteModel,
   });
 
+  /// 빌딩 리스트
   final List<BuildingModel> buildingList;
+
+  /// 빌딩 상태 리스트
   final List<BuildingStatusList> buildingStatusList;
+
+  /// 사이트 정보
   final SiteModel? siteModel;
 
   @override
@@ -27,6 +32,14 @@ class BuildingView extends ConsumerStatefulWidget {
 
 class _BuildingViewState extends ConsumerState<BuildingView> {
   @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      ref.read(buildingViewModelProvider.notifier).getAlarmHistoryList();
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BaseView(
       viewModelProvider: buildingViewModelProvider,
@@ -34,7 +47,7 @@ class _BuildingViewState extends ConsumerState<BuildingView> {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            /// 이미지
+            /// 건물 이미지
             widget.siteModel!.mapImage.isEmpty
                 ? Image.asset(
                     'assets/images/basic.png',
@@ -49,9 +62,11 @@ class _BuildingViewState extends ConsumerState<BuildingView> {
 
             /// 알람창
             WarningBox(
-              text: state.pushMessage.body ?? '새로운 알림이 없습니다.',
-              isWarning: state.pushMessage.isWarning,
-              onPressed: viewModel.alarmClear,
+              alarmDesc: state.alarmDesc,
+
+              /// 전체 알람 해제(미구현)
+              onAlarmAllClearPressed: () {},
+              onAlarmClearPressed: (alarmId) => viewModel.alarmClear(alarmId),
             ),
             const SizedBox(height: 16.0),
 
@@ -62,7 +77,7 @@ class _BuildingViewState extends ConsumerState<BuildingView> {
                   building: widget.buildingList[index],
                   siteName: widget.siteModel!.siteName,
                   isSecurity: widget.buildingStatusList[index].buildingSecurity,
-                  isWarning: state.pushMessage.isWarning,
+                  isWarning: widget.buildingStatusList[index].buildingStatus,
                   onSecurityPressed: (securityCode, buildingId) =>
                       viewModel.updateSecurityStatus(securityCode, buildingId),
                 ),

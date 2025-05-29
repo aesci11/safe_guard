@@ -21,7 +21,7 @@ class BuildingCard extends ConsumerStatefulWidget {
   final BuildingModel building;
   final String siteName;
   final int isSecurity;
-  final bool isWarning;
+  final String isWarning;
   final String? warningBuildingId;
   final void Function(int securityCode, String buildingId) onSecurityPressed;
 
@@ -45,7 +45,7 @@ class _BuildingCardState extends ConsumerState<BuildingCard> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
       onTap: () => toggleAndGetSensorList(),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 14.0),
@@ -65,7 +65,7 @@ class _BuildingCardState extends ConsumerState<BuildingCard> {
                     child: Row(
                       children: [
                         /// 아이콘
-                        widget.isWarning && widget.warningBuildingId == widget.building.buildingId
+                        widget.isWarning == '1'
                             ? AssetIcon(
                                 'building_warning',
                                 color: ref.color.secondary,

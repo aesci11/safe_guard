@@ -8,16 +8,19 @@ class BaseDialog extends ConsumerWidget {
     this.title,
     this.content,
     this.actions,
+    this.insertPadding,
   });
 
   final String? title;
   final Widget? content;
   final List<Widget>? actions;
+  final double? insertPadding;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return AlertDialog(
       backgroundColor: ref.color.surface,
+      insetPadding: EdgeInsets.symmetric(horizontal: insertPadding ?? 8.0),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10.0),
       ),

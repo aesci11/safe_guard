@@ -8,6 +8,7 @@ import 'package:safe_guard/src/view/base_view_state.dart';
 class HomeState extends BaseViewState {
   const HomeState({
     required this.isBusy,
+    required this.appVersion,
     required this.siteModel,
     required this.buildingList,
     required this.buildingStatusList,
@@ -16,6 +17,7 @@ class HomeState extends BaseViewState {
   });
   @override
   final bool isBusy;
+  final String appVersion;
   final SiteModel siteModel;
   final List<BuildingModel> buildingList;
   final List<BuildingStatusList> buildingStatusList;
@@ -24,6 +26,7 @@ class HomeState extends BaseViewState {
 
   HomeState copyWith({
     bool? isBusy,
+    String? appVersion,
     SiteModel? siteModel,
     List<BuildingModel>? buildingList,
     List<BuildingStatusList>? buildingStatusList,
@@ -32,6 +35,7 @@ class HomeState extends BaseViewState {
   }) {
     return HomeState(
       isBusy: isBusy ?? this.isBusy,
+      appVersion: appVersion ?? this.appVersion,
       siteModel: siteModel ?? this.siteModel,
       buildingList: buildingList ?? this.buildingList,
       buildingStatusList: buildingStatusList ?? this.buildingStatusList,

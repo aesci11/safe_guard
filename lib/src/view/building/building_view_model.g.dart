@@ -6,7 +6,7 @@ part of 'building_view_model.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$buildingViewModelHash() => r'7fab4309efdd3249614f896be9664c5d3f3d88b1';
+String _$buildingViewModelHash() => r'f0491f213b34d55dc48d37ab32ca015bc9e4ac5a';
 
 /// See also [BuildingViewModel].
 @ProviderFor(BuildingViewModel)

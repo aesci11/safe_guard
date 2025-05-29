@@ -1,14 +1,17 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:safe_guard/src/model/site_model.dart';
 import 'package:safe_guard/src/repository/site_repository.dart';
 import 'package:safe_guard/src/service/secure_storage.dart';
+import 'package:safe_guard/src/view/building/building_view_model.dart';
 import 'package:safe_guard/src/view/home/home_view_state.dart';
 import 'package:safe_guard/src/view/home/widget/contact_dialog.dart';
 import 'package:safe_guard/src/view/home/widget/exit_dialog.dart';
 import 'package:safe_guard/util/route_path.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 part 'home_view_model.g.dart';
 
@@ -18,12 +21,19 @@ class HomeViewModel extends _$HomeViewModel {
   HomeState build() {
     return HomeState(
       isBusy: false,
+      appVersion: '1.0.0',
       buildingList: const [],
       buildingStatusList: const [],
       contactList: const [],
       siteModel: SiteModel(siteName: '테스트', siteDomain: '', siteId: '', mapImage: ''),
       storage: ref.watch(secureStorageProvider),
     );
+  }
+
+  /// 앱 버전 불러오기
+  Future<void> packageInfo() async {
+    final PackageInfo info = await PackageInfo.fromPlatform();
+    state = state.copyWith(appVersion: info.version);
   }
 
   /// 알림 권한 요청
@@ -58,6 +68,7 @@ class HomeViewModel extends _$HomeViewModel {
     final result = await Future.wait([
       ref.read(getBuildingListProvider.future),
       ref.read(getBuildingStatusListProvider.future),
+      ref.read(buildingViewModelProvider.notifier).getAlarmHistoryList(),
       Future.delayed(const Duration(milliseconds: 500)),
     ]);
     state = state.copyWith(
@@ -82,8 +93,19 @@ class HomeViewModel extends _$HomeViewModel {
       context: context,
       builder: (context) => ContactDialog(
         contactList: state.contactList,
+        makeCall: (phoneNumber) => makePhoneCall(phoneNumber),
       ),
     );
+  }
+
+  /// 유관 기관 전화 연결
+  Future<void> makePhoneCall(String phoneNumber) async {
+    final Uri launchUri = Uri(scheme: 'tel', path: phoneNumber);
+    if (await canLaunchUrl(launchUri)) {
+      await launchUrl(launchUri);
+    } else {
+      throw 'Could not launch $launchUri';
+    }
   }
 
   /// 앱 종료 팝업

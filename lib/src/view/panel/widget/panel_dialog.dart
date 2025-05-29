@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:safe_guard/src/model/sensor_model.dart';
 import 'package:safe_guard/src/service/theme_service.dart';
+import 'package:safe_guard/src/view/panel/panel_view_model.dart';
 import 'package:safe_guard/theme/component/asset_icon.dart';
 import 'package:safe_guard/theme/component/base_dialog.dart';
 
@@ -20,10 +21,9 @@ class PanelDialog extends ConsumerStatefulWidget {
 }
 
 class _PanelDialogState extends ConsumerState<PanelDialog> {
-  /// 분전반 선택 인덱스
-  int clickIndex = 0;
   @override
   Widget build(BuildContext context) {
+    final panelIndex = ref.watch(panelViewModelProvider).panelIndex;
     return BaseDialog(
       title: '분전반 선택',
       content: SizedBox(
@@ -33,11 +33,11 @@ class _PanelDialogState extends ConsumerState<PanelDialog> {
           itemBuilder: (context, index) => InkWell(
             onTap: () {
               widget.getPanelState(widget.panelList[index].sensorId);
-              setState(() {
-                clickIndex = index;
-              });
+              ref.read(panelViewModelProvider.notifier).changePanelIndex(index);
+              ref.read(panelViewModelProvider.notifier).changePanelName('${widget.panelList[index].sensorName} $index');
             },
             splashColor: ref.color.hintContainer,
+            highlightColor: Colors.transparent,
             borderRadius: BorderRadius.circular(16.0),
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
@@ -49,13 +49,13 @@ class _PanelDialogState extends ConsumerState<PanelDialog> {
                   ),
                   const SizedBox(width: 10.0),
                   Text(
-                    widget.panelList[index].sensorName,
+                    '${widget.panelList[index].sensorName} $index',
                     style: ref.typo.subtitle1.copyWith(fontWeight: ref.typo.semiBold),
                   ),
                   const SizedBox(width: 20.0),
 
                   /// 분전반 선택 여부
-                  if (index == clickIndex)
+                  if (index == panelIndex)
                     Container(
                       padding: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 8.0),
                       decoration: BoxDecoration(

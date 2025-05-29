@@ -13,12 +13,23 @@ class PanelViewModel extends _$PanelViewModel {
     return const PanelViewState(
       isBusy: false,
       panelList: [],
+      panelIndex: 0,
     );
   }
 
   /// 분전반 리스트 state 추가
   void addSensorList(List<SensorModel> panelList) {
     state = state.copyWith(panelList: panelList);
+  }
+
+  /// 분전반 이름 변경
+  void changePanelName(String panelName) {
+    state = state.copyWith(panelName: panelName);
+  }
+
+  /// 분전반 인덱스 변경
+  void changePanelIndex(int index) {
+    state = state.copyWith(panelIndex: index);
   }
 
   /// 분전반 정보 불러오기

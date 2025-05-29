@@ -12,10 +12,12 @@ class SettingsDialog extends ConsumerStatefulWidget {
     super.key,
     required this.onLogoutPressed,
     required this.siteUrl,
+    required this.appVersion,
   });
 
   final void Function() onLogoutPressed;
   final String siteUrl;
+  final String appVersion;
 
   @override
   ConsumerState<SettingsDialog> createState() => _SettingsDialogState();
@@ -31,6 +33,7 @@ class _SettingsDialogState extends ConsumerState<SettingsDialog> {
     loadData();
   }
 
+  /// 저장된 알람음 데이타 불러오기
   void loadData() async {
     Sound soundData = await SharedPrefs.loadSoundData('sound');
     setState(() {
@@ -56,33 +59,33 @@ class _SettingsDialogState extends ConsumerState<SettingsDialog> {
   Widget build(BuildContext context) {
     return BaseDialog(
       title: '설정',
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          /// 타이틀
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: Text(
-              '알림음 설정',
-              style: ref.typo.subtitle1,
+      content: SizedBox(
+        width: double.maxFinite,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            /// 타이틀
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Text(
+                '알림음 설정',
+                style: ref.typo.subtitle1,
+              ),
             ),
-          ),
 
-          /// 경고음 라디오 박스
-          Row(
-            children: [
-              Expanded(
-                child: ListTile(
-                  title: Text(
-                    '기본',
-                    style: ref.typo.body1,
-                  ),
-                  contentPadding: const EdgeInsets.only(left: 8.0, right: 10.0),
-                  horizontalTitleGap: 2.0,
-                  leading: SizedBox(
-                    width: 30,
-                    child: Radio(
+            /// 경고음 라디오 박스
+            Row(
+              children: [
+                Expanded(
+                  child: ListTile(
+                    title: Text(
+                      '기본',
+                      style: ref.typo.body1,
+                    ),
+                    contentPadding: const EdgeInsets.only(left: 10.0, right: 10.0),
+                    horizontalTitleGap: 0.5,
+                    leading: Radio(
                       value: Sound.basic,
                       groupValue: _sound,
                       activeColor: ref.color.primary,
@@ -96,18 +99,15 @@ class _SettingsDialogState extends ConsumerState<SettingsDialog> {
                     ),
                   ),
                 ),
-              ),
-              Expanded(
-                child: ListTile(
-                  title: Text(
-                    '경고음1',
-                    style: ref.typo.body1,
-                  ),
-                  contentPadding: const EdgeInsets.only(right: 22.0),
-                  horizontalTitleGap: 2.0,
-                  leading: SizedBox(
-                    width: 30,
-                    child: Radio(
+                Expanded(
+                  child: ListTile(
+                    title: Text(
+                      '경고음1',
+                      style: ref.typo.body1,
+                    ),
+                    contentPadding: const EdgeInsets.only(right: 10.0),
+                    horizontalTitleGap: 0.5,
+                    leading: Radio(
                       value: Sound.sound1,
                       groupValue: _sound,
                       activeColor: ref.color.primary,
@@ -121,18 +121,15 @@ class _SettingsDialogState extends ConsumerState<SettingsDialog> {
                     ),
                   ),
                 ),
-              ),
-              Expanded(
-                child: ListTile(
-                  title: Text(
-                    '경고음2',
-                    style: ref.typo.body1,
-                  ),
-                  contentPadding: const EdgeInsets.only(right: 22.0),
-                  horizontalTitleGap: 2.0,
-                  leading: SizedBox(
-                    width: 30,
-                    child: Radio(
+                Expanded(
+                  child: ListTile(
+                    title: Text(
+                      '경고음2',
+                      style: ref.typo.body1,
+                    ),
+                    contentPadding: const EdgeInsets.only(right: 10.0),
+                    horizontalTitleGap: 0.5,
+                    leading: Radio(
                       value: Sound.sound2,
                       groupValue: _sound,
                       activeColor: ref.color.primary,
@@ -146,50 +143,50 @@ class _SettingsDialogState extends ConsumerState<SettingsDialog> {
                     ),
                   ),
                 ),
+              ],
+            ),
+            const Divider(),
+
+            /// 타이틀
+            Container(
+              padding: const EdgeInsets.only(top: 10.0, left: 16.0, right: 16.0),
+              child: Text(
+                '사이트 주소',
+                style: ref.typo.subtitle1,
               ),
-            ],
-          ),
-          const Divider(),
-
-          /// 타이틀
-          Container(
-            padding: const EdgeInsets.only(top: 10.0, left: 16.0, right: 16.0),
-            child: Text(
-              '사이트 주소',
-              style: ref.typo.subtitle1,
             ),
-          ),
-          const SizedBox(height: 10.0),
+            const SizedBox(height: 10.0),
 
-          /// 사이트 주소
-          Container(
-            padding: const EdgeInsets.only(bottom: 10.0, left: 16.0, right: 16.0),
-            child: Text(
-              widget.siteUrl,
-              style: ref.typo.subtitle2,
+            /// 사이트 주소
+            Container(
+              padding: const EdgeInsets.only(bottom: 10.0, left: 16.0, right: 16.0),
+              child: Text(
+                widget.siteUrl,
+                style: ref.typo.subtitle2,
+              ),
             ),
-          ),
-          const Divider(),
+            const Divider(),
 
-          /// 타이틀
-          Container(
-            padding: const EdgeInsets.only(top: 10.0, left: 16.0, right: 16.0),
-            child: Text(
-              '버전',
-              style: ref.typo.subtitle1,
+            /// 타이틀
+            Container(
+              padding: const EdgeInsets.only(top: 10.0, left: 16.0, right: 16.0),
+              child: Text(
+                '버전',
+                style: ref.typo.subtitle1,
+              ),
             ),
-          ),
-          const SizedBox(height: 10.0),
+            const SizedBox(height: 10.0),
 
-          /// 버전
-          Container(
-            padding: const EdgeInsets.only(bottom: 10.0, left: 16.0, right: 16.0),
-            child: Text(
-              '1.0.0',
-              style: ref.typo.subtitle2,
+            /// 버전
+            Container(
+              padding: const EdgeInsets.only(bottom: 10.0, left: 16.0, right: 16.0),
+              child: Text(
+                widget.appVersion,
+                style: ref.typo.subtitle2,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
       actions: [
         Row(

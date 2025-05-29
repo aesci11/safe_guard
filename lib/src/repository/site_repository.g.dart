@@ -849,6 +849,150 @@ class _PanelResetProviderElement
   String get sensorId => (origin as PanelResetProvider).sensorId;
 }
 
+String _$alarmClearHash() => r'ed7daae2e26ce17085bc286edf759c6e7b8a6988';
+
+/// 알람 확인
+///
+/// Copied from [alarmClear].
+@ProviderFor(alarmClear)
+const alarmClearProvider = AlarmClearFamily();
+
+/// 알람 확인
+///
+/// Copied from [alarmClear].
+class AlarmClearFamily extends Family<AsyncValue<Map<String, dynamic>>> {
+  /// 알람 확인
+  ///
+  /// Copied from [alarmClear].
+  const AlarmClearFamily();
+
+  /// 알람 확인
+  ///
+  /// Copied from [alarmClear].
+  AlarmClearProvider call(
+    String alarmId,
+  ) {
+    return AlarmClearProvider(
+      alarmId,
+    );
+  }
+
+  @override
+  AlarmClearProvider getProviderOverride(
+    covariant AlarmClearProvider provider,
+  ) {
+    return call(
+      provider.alarmId,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'alarmClearProvider';
+}
+
+/// 알람 확인
+///
+/// Copied from [alarmClear].
+class AlarmClearProvider
+    extends AutoDisposeFutureProvider<Map<String, dynamic>> {
+  /// 알람 확인
+  ///
+  /// Copied from [alarmClear].
+  AlarmClearProvider(
+    String alarmId,
+  ) : this._internal(
+          (ref) => alarmClear(
+            ref as AlarmClearRef,
+            alarmId,
+          ),
+          from: alarmClearProvider,
+          name: r'alarmClearProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$alarmClearHash,
+          dependencies: AlarmClearFamily._dependencies,
+          allTransitiveDependencies:
+              AlarmClearFamily._allTransitiveDependencies,
+          alarmId: alarmId,
+        );
+
+  AlarmClearProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.alarmId,
+  }) : super.internal();
+
+  final String alarmId;
+
+  @override
+  Override overrideWith(
+    FutureOr<Map<String, dynamic>> Function(AlarmClearRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: AlarmClearProvider._internal(
+        (ref) => create(ref as AlarmClearRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        alarmId: alarmId,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<Map<String, dynamic>> createElement() {
+    return _AlarmClearProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is AlarmClearProvider && other.alarmId == alarmId;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, alarmId.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+mixin AlarmClearRef on AutoDisposeFutureProviderRef<Map<String, dynamic>> {
+  /// The parameter `alarmId` of this provider.
+  String get alarmId;
+}
+
+class _AlarmClearProviderElement
+    extends AutoDisposeFutureProviderElement<Map<String, dynamic>>
+    with AlarmClearRef {
+  _AlarmClearProviderElement(super.provider);
+
+  @override
+  String get alarmId => (origin as AlarmClearProvider).alarmId;
+}
+
 String _$getCameraPlayInfoHash() => r'6d4ee7dc086cd57e7e4d151ee882be8479c4da81';
 
 /// 카메라 정보 요청
@@ -933,7 +1077,7 @@ final getContactListProvider =
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef GetContactListRef = AutoDisposeFutureProviderRef<List<ContactList>>;
-String _$loginActionHash() => r'4feb61b13379904115e1d18d0ac68c2966963dbe';
+String _$loginActionHash() => r'a537e3c411d661dd7f071c0d683677a60fa688a1';
 
 /// 로그인 요청
 ///

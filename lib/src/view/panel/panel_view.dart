@@ -94,7 +94,7 @@ class _PanelViewState extends ConsumerState<PanelView> with SingleTickerProvider
         body: Column(
           children: [
             /// 분전반 선택 화면
-            GestureDetector(
+            InkWell(
               onTap: () => showDialog(
                 context: context,
                 builder: (context) => PanelDialog(
@@ -102,6 +102,8 @@ class _PanelViewState extends ConsumerState<PanelView> with SingleTickerProvider
                   getPanelState: (sensorId) => viewModel.getPanelStatusInfo(sensorId),
                 ),
               ),
+              splashColor: Colors.transparent,
+              highlightColor: Colors.transparent,
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 20.0),
                 child: Row(
@@ -113,7 +115,7 @@ class _PanelViewState extends ConsumerState<PanelView> with SingleTickerProvider
                     ),
                     const SizedBox(width: 10.0),
                     Text(
-                      widget.panelList[0].sensorName,
+                      state.panelName ?? widget.panelList[0].sensorName,
                       style: ref.typo.subtitle1.copyWith(fontWeight: ref.typo.semiBold),
                     ),
                     const SizedBox(width: 10.0),

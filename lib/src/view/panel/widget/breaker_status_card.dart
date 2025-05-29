@@ -40,7 +40,7 @@ class BreakerStatusCard extends ConsumerWidget {
                 children: [
                   AssetIcon(
                     'breaker',
-                    color: ref.color.primary,
+                    color: breakerStatus == '0' ? ref.color.inactive : ref.color.primary,
                     size: 42.0,
                   ),
                   const SizedBox(height: 8.0),

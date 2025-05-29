@@ -17,6 +17,8 @@ class Button extends ConsumerStatefulWidget {
     this.color,
     this.backgroundColor,
     this.borderColor,
+    this.splashColor,
+    this.highlightColor,
     this.textSize,
     this.iconSize,
     this.textDecoration,
@@ -52,6 +54,10 @@ class Button extends ConsumerStatefulWidget {
   final Color? backgroundColor;
   final Color? borderColor;
 
+  /// 버튼 클릭시 효과 색상
+  final Color? splashColor;
+  final Color? highlightColor;
+
   @override
   ConsumerState<Button> createState() => _ButtonState();
 }
@@ -84,26 +90,29 @@ class _ButtonState extends ConsumerState<Button> {
         widget.borderColor,
       );
 
-  /// 버튼 클릭 이벤트
-  void onPressed(bool newIsPressed) {
-    if (isPressed == newIsPressed) return;
-    setState(() {
-      isPressed = newIsPressed;
-    });
-  }
+  // /// 버튼 클릭 이벤트
+  // void onPressed(bool newIsPressed) {
+  //   if (isPressed == newIsPressed) return;
+  //   setState(() {
+  //     isPressed = newIsPressed;
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
       /// 클릭 이벤트
-      onTapUp: (details) {
-        onPressed(false);
-        if (!widget.isInactive) {
-          widget.onPressed();
-        }
-      },
-      onTapDown: (details) => onPressed(true),
-      onTapCancel: () => onPressed(false),
+      onTap: () => widget.onPressed(),
+      // onTapUp: (details) {
+      //   onPressed(false);
+      //   if (!widget.isInactive) {
+      //     widget.onPressed();
+      //   }
+      // },
+      // onTapDown: (details) => onPressed(true),
+      // onTapCancel: () => onPressed(false),
+      splashColor: widget.splashColor ?? Colors.transparent,
+      highlightColor: widget.highlightColor ?? Colors.transparent,
 
       /// 버튼
       child: AnimatedContainer(

@@ -16,6 +16,7 @@ class VideoView extends ConsumerStatefulWidget {
     required this.siteName,
   });
 
+  /// 사이트 이름
   final String siteName;
 
   @override
@@ -23,9 +24,12 @@ class VideoView extends ConsumerStatefulWidget {
 }
 
 class _VideoViewState extends ConsumerState<VideoView> {
+  /// 페이지 컨트롤러
   final PageController _pageController = PageController(
     initialPage: 0,
   );
+
+  /// 현재 페이지
   int currentPage = 0;
 
   @override
@@ -166,7 +170,7 @@ class _VideoViewState extends ConsumerState<VideoView> {
                               padding: const EdgeInsets.symmetric(vertical: 14.0, horizontal: 18.0),
                               child: Text(
                                 '카메라 목록',
-                                style: ref.typo.headline4.copyWith(fontWeight: ref.typo.semiBold),
+                                style: ref.typo.headline6.copyWith(fontWeight: ref.typo.semiBold),
                               ),
                             ),
                           ),

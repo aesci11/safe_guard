@@ -20,7 +20,7 @@ class VideoListCard extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Padding(
       padding: const EdgeInsets.only(top: 2.0, left: 8.0, right: 8.0),
-      child: GestureDetector(
+      child: InkWell(
         onTap: onPressed,
         child: Container(
           padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 26.0),

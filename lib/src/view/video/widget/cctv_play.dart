@@ -29,7 +29,11 @@ class _CctvPlayState extends ConsumerState<CctvPlay> {
     ),
   );
   late final controller = VideoController(player);
+
+  /// 로딩 타이머
   Timer? bufferingTimer;
+
+  /// 영상 로딩중인지 여부
   bool isBuffering = false;
   String delayLoading = '';
   String errorMassage = '';
@@ -106,7 +110,7 @@ class _CctvPlayState extends ConsumerState<CctvPlay> {
                         ),
                       )
                     : GestureDetector(
-                        onDoubleTap: state.toggleFullscreen,
+                        onDoubleTap: () => state.toggleFullscreen(),
                       );
           },
 

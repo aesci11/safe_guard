@@ -6,7 +6,7 @@ part of 'panel_view_model.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$panelViewModelHash() => r'85fe7d16f2fc0c6269e06a82d9be5b236e7e491b';
+String _$panelViewModelHash() => r'bff687d9e05b5bdd72e54954530a80696bf8a5c8';
 
 /// See also [PanelViewModel].
 @ProviderFor(PanelViewModel)

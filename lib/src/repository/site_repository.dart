@@ -143,6 +143,17 @@ Future<Map<String, dynamic>> panelReset(Ref ref, String sensorId) async {
   return result;
 }
 
+/// 알람 확인
+@riverpod
+Future<Map<String, dynamic>> alarmClear(Ref ref, String alarmId) async {
+  final storage = ref.read(secureStorageProvider);
+  final siteUrl = await storage.read(key: 'siteUrl');
+  final userId = await storage.read(key: 'userId');
+  final res = await NetworkHelper.dio.get('$siteUrl/m/updateAlarmInfoHistory?user_id=$userId&alarm_id=$alarmId');
+  final result = res.data;
+  return result;
+}
+
 /// 카메라 정보 요청
 @riverpod
 Future<List<CameraModel>> getCameraPlayInfo(Ref ref) async {

@@ -6,7 +6,7 @@ part of 'video_view_model.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$videoViewModelHash() => r'b9b13b39b5cf30333f89b03cf86205eebf1e52cd';
+String _$videoViewModelHash() => r'da25297be84fd834bd704f6ae5d0b4e7e8eed7d0';
 
 /// See also [VideoViewModel].
 @ProviderFor(VideoViewModel)
