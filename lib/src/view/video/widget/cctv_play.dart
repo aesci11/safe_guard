@@ -23,11 +23,7 @@ class CctvPlay extends ConsumerStatefulWidget {
 }
 
 class _CctvPlayState extends ConsumerState<CctvPlay> {
-  late final player = Player(
-    configuration: const PlayerConfiguration(
-      bufferSize: 16 * 1024 * 1024,
-    ),
-  );
+  late final player = Player(configuration: const PlayerConfiguration());
   late final controller = VideoController(player);
 
   /// 로딩 타이머
@@ -52,8 +48,14 @@ class _CctvPlayState extends ConsumerState<CctvPlay> {
   }
 
   void playCctvStream() async {
+    await player.setAudioTrack(AudioTrack.no());
     try {
-      await player.open(Media('rtsp://${widget.cctvUrl}'));
+      NativePlayer native = controller.player.platform as NativePlayer;
+      native.setProperty('aid', 'no');
+      native.setProperty('profile', 'low-latency');
+      native.setProperty('opengl-glfinish', 'yes');
+      // player.platform = native;
+      await native.open(Media('rtsp://${widget.cctvUrl}'));
       bufferingTimer = Timer(
         const Duration(seconds: 10),
         () {
@@ -146,10 +148,11 @@ class _CctvPlayState extends ConsumerState<CctvPlay> {
 
         /// CCTV 이름
         Positioned(
-            top: 10,
-            left: 18,
+            top: 6.0,
+            left: 18.0,
             child: Text(
               widget.cctvName,
+              textScaler: TextScaler.noScaling,
               style: ref.typo.body1.copyWith(color: ref.color.onPrimary),
             )),
       ],

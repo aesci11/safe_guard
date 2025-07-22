@@ -47,6 +47,8 @@ class _BuildingCardState extends ConsumerState<BuildingCard> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () => toggleAndGetSensorList(),
+      splashColor: Colors.transparent,
+      highlightColor: Colors.transparent,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 14.0),
         child: Container(

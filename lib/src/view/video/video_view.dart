@@ -170,6 +170,7 @@ class _VideoViewState extends ConsumerState<VideoView> {
                               padding: const EdgeInsets.symmetric(vertical: 14.0, horizontal: 18.0),
                               child: Text(
                                 '카메라 목록',
+                                textScaler: TextScaler.noScaling,
                                 style: ref.typo.headline6.copyWith(fontWeight: ref.typo.semiBold),
                               ),
                             ),
@@ -238,8 +239,8 @@ class _VideoViewState extends ConsumerState<VideoView> {
 
                       /// 4분할 아이콘
                       Positioned(
-                        right: 84,
-                        bottom: 0,
+                        top: 6.0,
+                        right: 6.0,
                         child: Button(
                           onPressed: () => viewModel.page4Divisions(_pageController),
                           type: ButtonType.flat,
@@ -251,8 +252,8 @@ class _VideoViewState extends ConsumerState<VideoView> {
 
                       /// 9분할 아이콘
                       Positioned(
-                        right: 24,
-                        bottom: 0,
+                        top: 66.0,
+                        right: 6.0,
                         child: Button(
                           onPressed: () => viewModel.page9Divisions(_pageController),
                           type: ButtonType.flat,

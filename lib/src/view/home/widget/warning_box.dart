@@ -63,6 +63,7 @@ class WarningBox extends ConsumerWidget {
                         (alarmDesc == null || alarmDesc!.isEmpty)
                             ? '새로운 알람이 없습니다.'
                             : '${alarmDesc?[0].buildingName} ${alarmDesc?[0].alarmDescription}',
+                        textScaler: TextScaler.noScaling,
                       ),
                     ),
                   ],

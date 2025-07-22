@@ -41,3 +41,8 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Android play console upload key info
+key.properties
+**/*.keystore
+**/*.jks

@@ -16,7 +16,8 @@ import 'package:safe_guard/theme/res/layout.dart';
 /// 1. 차단기 제어 미구현
 /// 2. push message 테스트
 /// 3. 알람 사운드 확인
-/// 4.
+/// 4. 폰트 크기 확인
+/// 5.
 ///
 
 class HomeView extends ConsumerStatefulWidget {
@@ -74,6 +75,7 @@ class _HomeViewState extends ConsumerState<HomeView> with TickerProviderStateMix
 
   @override
   Widget build(BuildContext context) {
+    final screenSizeHeight = MediaQuery.of(context).size.height;
     return BaseView(
       viewModelProvider: homeViewModelProvider,
       builder: (ref, viewModel, state) => PopScope(
@@ -108,30 +110,34 @@ class _HomeViewState extends ConsumerState<HomeView> with TickerProviderStateMix
               );
             },
           ),
-          body: TabBarView(
-            physics: const NeverScrollableScrollPhysics(),
-            controller: _tabController,
-            children: [
-              /// 홈
-              BuildingView(
-                buildingList: state.buildingList,
-                buildingStatusList: state.buildingStatusList,
-                siteModel: state.siteModel,
-              ),
+          body: SafeArea(
+            child: TabBarView(
+              physics: const NeverScrollableScrollPhysics(),
+              controller: _tabController,
+              children: [
+                /// 홈
+                BuildingView(
+                  buildingList: state.buildingList,
+                  buildingStatusList: state.buildingStatusList,
+                  siteModel: state.siteModel,
+                ),
 
-              /// 영상 - 새로운 페이지로 이동
-              const SizedBox(),
+                /// 영상 - 새로운 페이지로 이동
+                const SizedBox(),
 
-              /// 이력 조회
-              HistoryView(siteName: state.siteModel.siteName),
+                /// 이력 조회
+                HistoryView(siteName: state.siteModel.siteName),
 
-              /// 전화 연결 - 팝업창
-              const SizedBox(),
-            ],
+                /// 전화 연결 - 팝업창
+                const SizedBox(),
+              ],
+            ),
           ),
           bottomNavigationBar: AnimatedContainer(
             duration: const Duration(milliseconds: 500),
-            height: _tabController.index == 1 ? context.layout(70, tablet: 0, desktop: 0) : context.layout(80),
+            height: _tabController.index == 1
+                ? context.layout(screenSizeHeight * 0.1, tablet: 0, desktop: 0)
+                : context.layout(screenSizeHeight * 0.1),
             child: BottomNavigationBar(
               selectedItemColor: ref.color.secondary,
               unselectedItemColor: ref.color.inactive,

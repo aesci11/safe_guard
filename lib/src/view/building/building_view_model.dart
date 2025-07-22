@@ -19,10 +19,8 @@ class BuildingViewModel extends _$BuildingViewModel {
     );
   }
 
-  /// 전체 알람 확인
-  void alarmAllClear() {
-    ref.read(pushNotificationServiceProvider.notifier).alarmClear();
-  }
+  /// 전체 알람 확인(미구현)
+  void alarmAllClear() {}
 
   /// 개별 알람 확인
   Future<void> alarmClear(String alarmId) async {
@@ -32,7 +30,7 @@ class BuildingViewModel extends _$BuildingViewModel {
       Future.delayed(const Duration(milliseconds: 500)),
     ]);
     state = state.copyWith(isBusy: false);
-    result[0]['result'] == '200' ? Toast.show('알람 확인 성공') : Toast.show('알람 확인 실패');
+    result[0] == '200' ? Toast.show('알람 확인 성공') : Toast.show('알람 확인 실패');
     getAlarmHistoryList();
   }
 

@@ -849,7 +849,7 @@ class _PanelResetProviderElement
   String get sensorId => (origin as PanelResetProvider).sensorId;
 }
 
-String _$alarmClearHash() => r'ed7daae2e26ce17085bc286edf759c6e7b8a6988';
+String _$alarmClearHash() => r'9ff4bf323a6d0beca1acb535913bcd3195dabbc2';
 
 /// 알람 확인
 ///
@@ -860,7 +860,7 @@ const alarmClearProvider = AlarmClearFamily();
 /// 알람 확인
 ///
 /// Copied from [alarmClear].
-class AlarmClearFamily extends Family<AsyncValue<Map<String, dynamic>>> {
+class AlarmClearFamily extends Family<AsyncValue<String?>> {
   /// 알람 확인
   ///
   /// Copied from [alarmClear].
@@ -904,8 +904,7 @@ class AlarmClearFamily extends Family<AsyncValue<Map<String, dynamic>>> {
 /// 알람 확인
 ///
 /// Copied from [alarmClear].
-class AlarmClearProvider
-    extends AutoDisposeFutureProvider<Map<String, dynamic>> {
+class AlarmClearProvider extends AutoDisposeFutureProvider<String?> {
   /// 알람 확인
   ///
   /// Copied from [alarmClear].
@@ -942,7 +941,7 @@ class AlarmClearProvider
 
   @override
   Override overrideWith(
-    FutureOr<Map<String, dynamic>> Function(AlarmClearRef provider) create,
+    FutureOr<String?> Function(AlarmClearRef provider) create,
   ) {
     return ProviderOverride(
       origin: this,
@@ -959,7 +958,7 @@ class AlarmClearProvider
   }
 
   @override
-  AutoDisposeFutureProviderElement<Map<String, dynamic>> createElement() {
+  AutoDisposeFutureProviderElement<String?> createElement() {
     return _AlarmClearProviderElement(this);
   }
 
@@ -979,14 +978,13 @@ class AlarmClearProvider
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-mixin AlarmClearRef on AutoDisposeFutureProviderRef<Map<String, dynamic>> {
+mixin AlarmClearRef on AutoDisposeFutureProviderRef<String?> {
   /// The parameter `alarmId` of this provider.
   String get alarmId;
 }
 
 class _AlarmClearProviderElement
-    extends AutoDisposeFutureProviderElement<Map<String, dynamic>>
-    with AlarmClearRef {
+    extends AutoDisposeFutureProviderElement<String?> with AlarmClearRef {
   _AlarmClearProviderElement(super.provider);
 
   @override

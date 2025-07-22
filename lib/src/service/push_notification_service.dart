@@ -58,11 +58,12 @@ class PushNotificationService extends _$PushNotificationService {
   /// push 메시지 처리
   void setupFMC() {
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      print('Received message: ${message.notification?.title}');
+      RemoteNotification? notification = message.notification;
+      AndroidNotification? android = message.notification?.android;
+      final List<String>? karina = notification?.body?.split(',');
+      final winter = karina?[1];
+      print('Received message: ${notification?.body}');
       showLocalNotification(message);
-      state = state.copyWith(title: message.notification?.title);
-      state = state.copyWith(body: message.notification?.body);
-      state = state.copyWith(isWarning: true);
     });
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
       print('Open app from notification: ${message.notification?.title}');

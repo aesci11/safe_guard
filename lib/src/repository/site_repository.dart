@@ -145,13 +145,24 @@ Future<Map<String, dynamic>> panelReset(Ref ref, String sensorId) async {
 
 /// 알람 확인
 @riverpod
-Future<Map<String, dynamic>> alarmClear(Ref ref, String alarmId) async {
+Future<String?> alarmClear(Ref ref, String alarmId) async {
   final storage = ref.read(secureStorageProvider);
   final siteUrl = await storage.read(key: 'siteUrl');
   final userId = await storage.read(key: 'userId');
-  final res = await NetworkHelper.dio.get('$siteUrl/m/updateAlarmInfoHistory?user_id=$userId&alarm_id=$alarmId');
-  final result = res.data;
-  return result;
+  try {
+    final res = await NetworkHelper.dio
+        .get('$siteUrl/m/updateAlarmInfoHistory?user_id=$userId&alarm_id=$alarmId')
+        .timeout(const Duration(seconds: 10));
+    if (res.statusCode == 200) {
+      final result = res.data['result'];
+      return result;
+    } else {
+      return null;
+    }
+  } on TimeoutException catch (_) {
+    Toast.show('요청 시간 지연');
+    return null;
+  }
 }
 
 /// 카메라 정보 요청

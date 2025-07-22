@@ -90,14 +90,6 @@ class _ButtonState extends ConsumerState<Button> {
         widget.borderColor,
       );
 
-  // /// 버튼 클릭 이벤트
-  // void onPressed(bool newIsPressed) {
-  //   if (isPressed == newIsPressed) return;
-  //   setState(() {
-  //     isPressed = newIsPressed;
-  //   });
-  // }
-
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -143,6 +135,7 @@ class _ButtonState extends ConsumerState<Button> {
             if (widget.text != null)
               Text(
                 widget.text!,
+                textScaler: TextScaler.noScaling,
                 style: widget.size.getTextStyle(ref).copyWith(
                       color: color,
                       fontWeight: ref.typo.semiBold,
